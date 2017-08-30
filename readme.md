@@ -1,5 +1,6 @@
 # ntv.js
 原始框架地址：[点击](https://git.oschina.net/ntv/ntv.js)
+
 ntv.js 博客地址  [点击](https://my.oschina.net/cotonchen/home)
 
 
@@ -67,3 +68,44 @@ ntv.js 博客地址  [点击](https://my.oschina.net/cotonchen/home)
   - effect-slidemenu.js 
 
   ​    滑动菜单插件。横向多图标的滚动插件。
+
+#### js文件解读
+
+###### 10ocn_media_player.js
+
+1：ocnmediaplayer方法的参数说明
+
+     x：横坐标
+     y：纵坐标
+     w：宽度
+     h：高度
+     url：HTTP视频播放地址
+     status：播放状态 （play：播放，pause：暂停播放，resume：恢复播放）
+     type：播放类型（continue：循环播放；end：播放结束后关闭视频）
+     callback_end：播放结束回掉函数
+
+2：调用方法参照index.html文件
+
+version 6.0， 2016.4.24
+3：音量控制调用参照
+
+   //控制音量 volume取值0~100
+   ntv.stb.mediaplayer.setVolume(volume);
+
+   //获取音量
+   var getVo = ntv.stb.mediaplayer.getVolume();
+4: 播放控制
+   //重新播放
+   ntv.stb.mediaplayer.resume()
+   //暂停播放
+   ntv.stb.mediaplayer.pause()
+   //停止
+   ntv.stb.mediaplayer.stop()
+   //跳转 time: 单位秒
+   ntv.stb.mediaplayer.seekSecond(int time)
+
+version 6.0， 2016.5.16
+
+5. 高清盒子，ngb_h 接口优先，高清盒子ngb_h 接口调通
+6. 增加内部unload 函数（调用ntv.stb.mediaplayer.stop()），用于是否页面在播放时没有停止直接退出，需要释放ngb_h接口的mediaplay实例。否则下次进入无法播放。		
+

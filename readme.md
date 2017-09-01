@@ -123,5 +123,72 @@ var getVo = ntv.stb.mediaplayer.getVolume();
 ​	version 6.0， 2016.5.16
 
 5. 高清盒子，ngb_h 接口优先，高清盒子ngb_h 接口调通
-6. 增加内部unload 函数（调用ntv.stb.mediaplayer.stop()），用于是否页面在播放时没有停止直接退出，需要释放ngb_h接口的mediaplay实例。否则下次进入无法播放。		
+
+6. 增加内部unload 函数（调用ntv.stb.mediaplayer.stop()），用于是否页面在播放时没有停止直接退出，需要释放ngb_h接口的mediaplay实例。否则下次进入无法播放。
+### 附录
+
+   - 相关技术标准
+
+   - - 获取机顶盒MAC信息
+
+   var browser = ntv.profile.browser;//用于辨别机顶盒类型
+
+   var mac;
+
+   if(browser == "iPanel"){//高清机顶盒获取mac方法
+
+   ​    mac = network.ethernets[0].MACAddress;
+
+   }else if(browser == "NGB-H"){//智能机顶盒方法 ***待测试
+
+   ​    var ethernets = Broadband.getAllEthernets();
+
+   ​    if (ethernets.length > 0) {
+
+   ​        var ethernet = ethernets[0]; 
+
+   ​        mac = ethernet.MACAddress.replace(/-/g, "");
+
+   ​    } else {
+
+   ​        mac = ethernet.MACAddress.replace(/-/g, "");
+
+   ​    }
+
+   }
+
+   - - 视频
+
+   编码要求
+
+|      | 视频分辨率        | 视频码率                    | 音频   |
+| ---- | ------------ | ----------------------- | ---- |
+| 高清   | 1280x720/50p | 2.5Mbps以上，H.264 HP@L4.0 | AAC  |
+| 标清   | 720x576/50i  | 1.2Mbps以上，H.264 MP@3.0  | AAC  |
+
+   支持格式
+
+   ​	大部分符合编码的视频格式。
+
+   ​	实际测试了.mp4，.mpeg两种。
+
+   - - 安全显示区域
+
+   高清机顶盒暂时只支持1280*720的分辨率。其中安全区域为1120*620，上下各空50px，左右各空80px。不在安全区域的部分，不同机顶盒的表现不相同，可能无法显示，也可能被显示出来。
+
+   智能机顶盒有支持4K屏的开发计划。
+
+   - - 机顶盒JS支持标准
+
+|            | 高清     | 智能       |
+| ---------- | ------ | -------- |
+| javascript | ES3.0  | 大部分ES6.0 |
+| CSS        | css2.0 | css2.0   |
+| Html       | html4  | 部分H5标签   |
+
+   经验证，**高清机顶盒**对Jquery、Backbone、Angular、Vue等通用JS框架都不支持。**智能机顶盒**支持Jquery和Vue框架的部分功能。智能机顶盒未能全部支持css3.0属性组。
+
+   对Liferay的JS前端控件生成的页面，**高清机顶盒**不支持，**智能机顶盒**可以支持。
+
+   智能机顶盒的部分版本（实测兆兴2000芯片的AC9V301机顶盒）不支持video标签的autoplay功能。
 

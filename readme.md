@@ -129,35 +129,40 @@ var getVo = ntv.stb.mediaplayer.getVolume();
 
    - 相关技术标准
 
-   - - 获取机顶盒MAC信息
+   - 获取机顶盒MAC信息
 
-   var browser = ntv.profile.browser;//用于辨别机顶盒类型
+  ```
+     var browser = ntv.profile.browser;//用于辨别机顶盒类型
 
-   var mac;
+        var mac;
 
-   if(browser == "iPanel"){//高清机顶盒获取mac方法
+        if(browser == "iPanel"){//高清机顶盒获取mac方法
 
-   ​    mac = network.ethernets[0].MACAddress;
+            mac = network.ethernets[0].MACAddress;
 
-   }else if(browser == "NGB-H"){//智能机顶盒方法 ***待测试
+        }else if(browser == "NGB-H"){//智能机顶盒方法 ***待测试
 
-   ​    var ethernets = Broadband.getAllEthernets();
+            var ethernets = Broadband.getAllEthernets();
 
-   ​    if (ethernets.length > 0) {
+            if (ethernets.length > 0) {
 
-   ​        var ethernet = ethernets[0]; 
+                var ethernet = ethernets[0]; 
 
-   ​        mac = ethernet.MACAddress.replace(/-/g, "");
+                mac = ethernet.MACAddress.replace(/-/g, "");
 
-   ​    } else {
+            } else {
 
-   ​        mac = ethernet.MACAddress.replace(/-/g, "");
+                mac = ethernet.MACAddress.replace(/-/g, "");
 
-   ​    }
+            }
 
-   }
+        }
+  ```
 
-   - - 视频
+
+
+
+   -  视频
 
    编码要求
 
@@ -174,7 +179,7 @@ var getVo = ntv.stb.mediaplayer.getVolume();
 
    - - 安全显示区域
 
-   高清机顶盒暂时只支持1280*720的分辨率。其中安全区域为1120*620，上下各空50px，左右各空80px。不在安全区域的部分，不同机顶盒的表现不相同，可能无法显示，也可能被显示出来。
+   高清机顶盒暂时只支持1280\*720的分辨率。其中安全区域为1120\*620，上下各空50px，左右各空80px。不在安全区域的部分，不同机顶盒的表现不相同，可能无法显示，也可能被显示出来。
 
    智能机顶盒有支持4K屏的开发计划。
 
